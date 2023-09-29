@@ -15,3 +15,6 @@
     v0.2 2023-09-22 Moved parts in classes
     v1.0 2023-09-29 Add EEPROM config load/save, cleanup unused stuff
 */
+![PIC1](/images/website.png)
+![PIC2](/images/setup.png)
+![PIC3](/images/debug.png)
