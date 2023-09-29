@@ -12,6 +12,8 @@
     v0.1 2023-09-20 Initial commit
     v0.2 2023-09-22 Moved parts in classes
     v1.0 2023-09-29 Add EEPROM config load/save, cleanup unused stuff
+
+    Author: Marc-Oliver Blumenauer, marc@l3c.de, 2023-09-29
 */
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
