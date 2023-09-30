@@ -31,6 +31,7 @@ String    MAC,topic_temperature, topic_humidity;
 
 extern MQTT mqtt;
 extern configData data;
+extern util util;
 
 void MQTT::begin() {
     uint16_t port = atoi(data.mqtt_port);
@@ -59,9 +60,12 @@ void MQTT::begin() {
             delay(2000);
         }
   }
-  for (int i = 0; i < 6; i++)
+  char *topic=util.split(data.mqtt_subscribe,"\r\n");
+  while(topic != NULL)
   {
-      client.subscribe(mqtt_topics[i]);
+    Serial.printf("MQTT Subscribing to topic: \"%s\"\n", topic);
+    client.subscribe(topic);
+    topic = util.split(NULL, "\r\n");
   }
 
   strcpy(buildTopic,"/");
@@ -207,9 +211,12 @@ void MQTT::checkConnection() {
         }
         if(client.connected()) {
             MQTT::connected = true;
-            for (int i = 0; i < 6; i++)
+            char *topic=util.split(data.mqtt_subscribe,"\r\n");
+            while(topic != NULL)
             {
-                client.subscribe(mqtt_topics[i]);
+                Serial.printf("MQTT Subscribing to topic: \"%s\"\n", topic);
+                client.subscribe(topic);
+                topic = util.split(NULL, "\r\n");
             }
         } else {
             MQTT::connected = false;

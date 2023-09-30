@@ -12,8 +12,18 @@
     v0.1 2023-09-20 Initial commit
     v0.2 2023-09-22 Moved parts in classes
     v1.0 2023-09-29 Add EEPROM config load/save, cleanup unused stuff
+    v1.1 2023-09-29 fixed setup for MQTT topics, now entered in Setup and not in config.h anymore
 
-    Author: Marc-Oliver Blumenauer, marc@l3c.de, 2023-09-29
+    In Setup use your preferred MQTT topics seperated by <ENTER> like:
+      /PoolSteuerung/PoolTemperatur
+      /SmartMeter/EASTRON/SDM72DV2/ImportPower
+      /SmartMeter/EASTRON/SDM72DV2/ExportPower
+      /SmartMeter/EASTRON/SDM72DV2/L1_Power
+      /SmartMeter/EASTRON/SDM72DV2/L2_Power
+      /SmartMeter/EASTRON/SDM72DV2/L3_Power
+
+      If DHTxx Sensor is connected change/use defines in temperatur.h:
+        #define DHTPIN  D5
 */
 #include <Arduino.h>
 #include <ESP8266WiFi.h>

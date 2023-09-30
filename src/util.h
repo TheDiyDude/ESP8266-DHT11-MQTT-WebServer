@@ -10,6 +10,8 @@ class util
 
 public:
     util(){};
+    void test(char* test);
+    char *split(char *string, char *delimeter);
     void clearEEPROM();
     void readConfigurationFromEEPROM();
     void writeConfigurationToEEPROM();

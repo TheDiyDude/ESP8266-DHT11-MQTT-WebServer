@@ -48,3 +48,11 @@ void util::readConfigurationFromEEPROM(){
   Serial.print("Wifi password: ");
   Serial.println(data.password);
 }
+
+char* util::split(char *string, char* delimeter){
+  return strtok(string, delimeter);
+}
+
+void util::test(char* test){
+  
+}

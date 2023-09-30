@@ -14,7 +14,7 @@ extern configData data;
 void wifi_setup()
 {
     util.readConfigurationFromEEPROM();
-    if (strlen(data.ssid)==0)
+    if (strlen(data.ssid) == 0)
     { 
       ap_mode();
     }
