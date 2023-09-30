@@ -8,7 +8,7 @@ extern const char *before;
 extern const char *after;
 
 extern char payload[];
-extern const char*  mqtt_topics[];
+//extern const char*  mqtt_topics[];
 extern String       client_id;
 extern char         mqtt_topic_temperature;
 extern char         mqtt_topic_humidity;
@@ -28,7 +28,7 @@ String    temp_values;
 char      buffer[300];
 char      buildTopic[500];
 String    MAC,topic_temperature, topic_humidity;
-
+String    mqtt_topics;
 extern MQTT mqtt;
 extern configData data;
 extern util util;
@@ -60,15 +60,18 @@ void MQTT::begin() {
             delay(2000);
         }
   }
-  char *topic=util.split(data.mqtt_subscribe,"\r\n");
+  mqtt_topics = "";
+  char *topic = util.split(data.mqtt_subscribe, "\r\n");
   while(topic != NULL)
   {
     Serial.printf("MQTT Subscribing to topic: \"%s\"\n", topic);
     client.subscribe(topic);
+    mqtt_topics += topic;
+    mqtt_topics += "\r\n";
     topic = util.split(NULL, "\r\n");
   }
-
-  strcpy(buildTopic,"/");
+  strcpy(data.mqtt_subscribe, mqtt_topics.c_str());
+  strcpy(buildTopic, "/");
   strcat(buildTopic,data.hostname);
   strcat(buildTopic,&mqtt_topic_temperature);
   topic_temperature = buildTopic;
@@ -210,14 +213,18 @@ void MQTT::checkConnection() {
             delay(1000);
         }
         if(client.connected()) {
+            mqtt_topics = "";
             MQTT::connected = true;
             char *topic=util.split(data.mqtt_subscribe,"\r\n");
             while(topic != NULL)
             {
                 Serial.printf("MQTT Subscribing to topic: \"%s\"\n", topic);
                 client.subscribe(topic);
+                mqtt_topics += topic;
+                mqtt_topics += "\r\n";
                 topic = util.split(NULL, "\r\n");
             }
+            strcpy(data.mqtt_subscribe, mqtt_topics.c_str());
         } else {
             MQTT::connected = false;
          }
